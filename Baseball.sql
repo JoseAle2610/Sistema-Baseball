@@ -1,7 +1,5 @@
 create database baseball;
-
 use baseball;
-
 create table temporadas (
     idTemporada             int primary key not null auto_increment,
     Suspendido_Temporada    TINYINT(1) NOT NULL DEFAULT 1,
