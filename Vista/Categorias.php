@@ -2,43 +2,35 @@
       require_once '../Controlador/conexionA.php';
       require '../Controlador/Table.php';
       //MOSTRANDO EN LAS TABLAS
-      $sql_leer = 'SELECT Categoria FROM categorias';
-      $gsent = $pdo->prepare($sql_leer);
-      $gsent->execute();
-      $resultado = $gsent->fetchAll();
+      // $sql_leer = 'SELECT Categoria FROM categorias';
+      // $gsent = $pdo->prepare($sql_leer);
+      // $gsent->execute();
+      // $resultado = $gsent->fetchAll();
       $sql_leer = 'SELECT Escuela FROM escuelas';
-      $gsent = $pdo->prepare($sql_leer);
-      $gsent->execute();
-      $resultado1 = $gsent->fetchAll();
+      $respuesta = consultar($sql_leer);
+      // $gsent = $pdo->prepare($sql_leer);
+      // $gsent->execute();
+      // $resultado1 = $gsent->fetchAll();
       // AGREGAR A BD
-      if(isset($_POST['btnAgregarCategoria'])){
-         try {
-            $categoria = $_POST['Nombre_Categoria'];
-            $sql_incluir = 'INSERT INTO categorias (Categoria) VALUES (?)';
-            $gsent = $pdo->prepare($sql_incluir);
-            $gsent->execute(array($categoria));
-            $sql_incluir = null; $pdo = null; $gsent = null;
-            unset($_POST, $gsent);
-         } catch (PDOException $e) {
-            print "Error : " . $e->getMessage() ."<br>";
-            die();
-            echo "error";
-         }
-      } else if(isset($_POST['btnAgregarEscuela'])){
-         try {
-            $escuelas = $_POST['Nombre_Escuela'];
-            $sql_incluir = 'INSERT INTO escuelas (Escuela) VALUES (?)';
-            $gsent = $pdo->prepare($sql_incluir);
-            $gsent->execute(array($escuelas));
-            $sql_incluir = null; $pdo = null; $gsent = null;
-            unset($_POST, $gsent);
-         } catch (PDOException $e) {
-            print "Error : " . $e->getMessage() ."<br>";
-            die();
-            echo "error";
-         }
+      // if(isset($_POST['btnAgregarCategoria'])){
+      //    try {
+      //       $categoria = $_POST['Nombre_Categoria'];
+      //       $sql_incluir = 'INSERT INTO categorias (Categoria) VALUES (?)';
+      //       $gsent = $pdo->prepare($sql_incluir);
+      //       $gsent->execute(array($categoria));
+      //       $sql_incluir = null; $pdo = null; $gsent = null;
+      //       unset($_POST, $gsent);
+      //    } catch (PDOException $e) {
+      //       print "Error : " . $e->getMessage() ."<br>";
+      //       die();
+      //       echo "error";
+      //    }
+       if(isset($_POST['btnAgregarEscuela'])){
+         $escuelas = $_POST['Nombre_Escuela'];
+         $sql_incluir = 'INSERT INTO escuelas (Escuela) VALUES (?)';
+         agregar($sql_incluir, $escuelas);
             
-      }
+       }
 
 ?>
 <div class="col fondo">
@@ -79,7 +71,7 @@
                               <th>Cant. Equipos</th>
                            </thead>
                            <tbody>
-                              <?php addItemAdmin($resultado); ?>
+                              
                            </tbody>
                         </table>
                      </div>
@@ -102,7 +94,7 @@
                            </thead>
                            <tbody>
                               <?php 
-                                 addItemAdmin($resultado1);
+                                 addItemAdmin($respuesta);
                                ?>
                            </tbody>
                         </table>
